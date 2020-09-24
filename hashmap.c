@@ -45,19 +45,29 @@ int is_equal(void* key1, void* key2){
 
 
 void insertMap(HashMap * map, char * key, void * value) {
-
-
+  if(map==NULL)return;
+  long position = hash(key, map->capacity);
+  if(map->buckets[position]==NULL){
+    map->buckets[position] = createPair(key, value);
+    map->size += 1;
+  }
+  else if (map->buckets[position]->value==NULL){
+      map->buckets[position]->value = value;
+      map->size += 1;
+  }
 }
 
 void enlarge(HashMap * map) {
-    enlarge_called = 1; //no borrar (testing purposes)
+    enlarge_called = 1; //no borrar (testing purposes)  
 
 
 }
 
 
 HashMap * createMap(long capacity) {
-
+  HashMap * newMap = (HashMap *)calloc(1,sizeof(HashMap));
+  newMap->buckets = (Pair **)calloc(capacity,sizeof(Pair *));
+  newMap->current = -1;
     return NULL;
 }
 
