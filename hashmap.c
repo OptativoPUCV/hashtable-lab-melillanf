@@ -48,17 +48,13 @@ void insertMap(HashMap * map, char * key, void * value) {
   if(map==NULL)return;
   long position = hash(key, map->capacity);
   int cap = map->capacity;
-  if(map->buckets[position]==NULL){
+  if(map->buckets[position]==NULL || map->buckets[position]->key == NULL){ //Comprueba si la position esta vacia o la key es invalida
     map->buckets[position] = createPair(key, value);
     map->size += 1;
   }
   else{ 
-    if (map->buckets[position]->key==NULL){
-      map->buckets[position]->value = value;
-      map->size += 1;
-    }
     if(map->buckets[position]!=NULL){
-      for(int i=position;i<cap;i++){
+      for(int i=position;i<cap;i++){//For que comprueba una casilla vacia hasta capacity
         if(map->buckets[i]==NULL || map->buckets[i]->key == NULL){
           map->buckets[i] = createPair(key, value);
           map->size += 1;
@@ -67,7 +63,7 @@ void insertMap(HashMap * map, char * key, void * value) {
       }
     }
     if(map->buckets[position]!=NULL){
-      for(int i = 0; i<position;i++){
+      for(int i = 0; i<position;i++){//En caso de no existir una casilla vacia comprueba desde la primera casilla
         if(map->buckets[i]==NULL || map->buckets[i]->key == NULL){
           map->buckets[i] = createPair(key, value);
           map->size += 1;
@@ -100,7 +96,23 @@ void eraseMap(HashMap * map,  char * key) {
 }
 
 void * searchMap(HashMap * map,  char * key) {   
-
+  long position = hash(key, map->capacity);
+  for(int i = position; i<map->size; i++){
+    if(map->buckets[i]->key == key){
+      return map->buckets[i]->value;
+    }
+    if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
+      return NULL;
+    }
+  }
+  for(int i = 0; i<position;i++){
+    if(map->buckets[i]->key == key){
+      return map->buckets[i]->value;
+    }
+    if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
+      return NULL;
+    }
+  }
 
     return NULL;
 }
