@@ -128,12 +128,15 @@ void * searchMap(HashMap * map,  char * key) {
 }
 
 void * firstMap(HashMap * map) {
-  int i = 0;
-  do{
-    if(map->buckets[i]->value != NULL){
-      return map->buckets[i]->value;
+  if(map->buckets == NULL || map == NULL){
+    return NULL;
+  }
+  for(int i = 0; i < map->capacity; i++) {
+        if (map->buckets[i] != NULL && map->buckets[i]->value != NULL) {
+            map->current = i;
+            return map->buckets[i]->value;
+        }
     }
-  }while(map->buckets[i]==NULL);
     return NULL;
 }
 
