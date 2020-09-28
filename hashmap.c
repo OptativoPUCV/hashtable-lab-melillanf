@@ -95,31 +95,33 @@ void eraseMap(HashMap * map,  char * key) {
 
 }
 
-void * searchMap(HashMap * map,  char * key) {   
-  long position = hash(key, map->capacity);
-  if(map==NULL)return NULL;
-  for(int i = position; i<map->size; i++){
-    
-    if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
-      return NULL;
-    }
-    if(strcmp(map->buckets[i]->key,key)==0){
-      return map->buckets[i]->value;
-    }
-    
-  }
-  for(int i = 0; i<position;i++){
-    
-    if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
-      return NULL;
-    }
-    if(strcmp(map->buckets[i]->key,key)==0){
-      return map->buckets[i]->value;
-    }
-    
-  }
-
+void * searchMap(HashMap * map,  char * key) {
+  int cap = map->capacity;   
+  long position = hash(key, cap);
+  
+  if(map==NULL || map->buckets[position]== NULL){
     return NULL;
+  }
+  if(strcmp(map->buckets[position]->key, key)) {
+    return map->buckets[position]->value;
+  }
+  for(int i = position ; i<cap ; i++){
+    if(strcmp(map->buckets[i]->key, key) == 0){
+      return map->buckets[i]->value;
+    }
+    if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
+      return NULL;
+    }
+  }
+  for(int i = 0 ; i<position ; i++){
+    if(strcmp(map->buckets[i]->key, key) == 0){
+      return map->buckets[i]->value;
+    }
+    if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
+      return NULL;
+    }
+  }
+  return NULL;
 }
 
 void * firstMap(HashMap * map) {
