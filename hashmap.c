@@ -103,10 +103,12 @@ void * searchMap(HashMap * map,  char * key) {
     return NULL;
   }
   if(strcmp(map->buckets[position]->key, key)) {
+    map->current = position;
     return map->buckets[position]->value;
   }
   for(int i = position ; i<cap ; i++){
     if(strcmp(map->buckets[i]->key, key) == 0){
+      map->current = i;
       return map->buckets[i]->value;
     }
     if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
@@ -115,6 +117,7 @@ void * searchMap(HashMap * map,  char * key) {
   }
   for(int i = 0 ; i<position ; i++){
     if(strcmp(map->buckets[i]->key, key) == 0){
+      map->current = i;
       return map->buckets[i]->value;
     }
     if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
