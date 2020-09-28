@@ -66,6 +66,15 @@ void insertMap(HashMap * map, char * key, void * value) {
         }
       }
     }
+    if(map->buckets[position]!=NULL){
+      for(int i = 0; i<position;i++){
+        if(map->buckets[i]==NULL || map->buckets[i]->key == NULL){
+          map->buckets[i] = createPair(key, value);
+          map->size += 1;
+          return;
+        }
+      }
+    }
   }
 }
 

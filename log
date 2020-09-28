@@ -34,3 +34,9 @@ Mon Sep 28 01:50:31 UTC 2020:
  tests:  4|5
 total_score: 20/70
 cfc4517
+Mon Sep 28 01:57:42 UTC 2020: 
+ hashmap.c | 9 +++++++++
+ 1 file changed, 9 insertions(+)
+ tests:  5|4
+total_score: 30/70
+7ae00ba
