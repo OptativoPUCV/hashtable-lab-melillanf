@@ -97,21 +97,26 @@ void eraseMap(HashMap * map,  char * key) {
 
 void * searchMap(HashMap * map,  char * key) {   
   long position = hash(key, map->capacity);
+  if(map==NULL)return NULL;
   for(int i = position; i<map->size; i++){
-    if(strcmp(map->buckets[i]->key,key)==0){
-      return map->buckets[i]->value;
-    }
+    
     if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
       return NULL;
     }
+    if(strcmp(map->buckets[i]->key,key)==0){
+      return map->buckets[i]->value;
+    }
+    
   }
   for(int i = 0; i<position;i++){
-    if(strcmp(map->buckets[i]->key,key)==0){
-      return map->buckets[i]->value;
-    }
+    
     if(map->buckets[i] == NULL || map->buckets[i]->key == NULL){
       return NULL;
     }
+    if(strcmp(map->buckets[i]->key,key)==0){
+      return map->buckets[i]->value;
+    }
+    
   }
 
     return NULL;
