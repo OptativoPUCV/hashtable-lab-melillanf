@@ -131,8 +131,11 @@ void * firstMap(HashMap * map) {
   if(map->buckets == NULL || map == NULL){
     return NULL;
   }
+  if(map->buckets[0]->key==NULL){
+    return NULL;
+  }
   for(int i = 0; i < map->capacity; i++) {
-        if (map->buckets[i]->value != NULL && strlen(map->buckets[i]->key)>0){
+        if (map->buckets[i]->value != NULL){
             map->current = i;
             return map->buckets[i]->value;
         }
